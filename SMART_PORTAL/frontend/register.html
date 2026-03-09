@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | Smart Student Portal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="card auth-card">
+      <h2>Create Account</h2>
+      <p>Register as admin or student</p>
+      <form id="registerForm" onsubmit="registerUser(event)">
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input id="name" type="text" required />
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input id="email" type="email" required />
+        </div>
+        <div class="form-row">
+          <label for="password">Password</label>
+          <input id="password" type="password" required />
+        </div>
+        <div class="form-row">
+          <label for="role">Role</label>
+          <select id="role" required>
+            <option value="student">Student</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="actions">
+          <button id="submitBtn" type="submit">Register</button>
+          <a class="link" href="login.html">Already have an account?</a>
+        </div>
+      </form>
+      <div id="status" class="status"></div>
+    </section>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

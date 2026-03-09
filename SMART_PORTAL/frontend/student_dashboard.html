@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Dashboard | Smart Student Portal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="topbar card">
+      <div>
+        <h3 id="welcome">Welcome</h3>
+        <div class="meta">Student Dashboard</div>
+      </div>
+      <button id="logoutBtn" type="button">Logout</button>
+    </header>
+
+    <section class="grid grid-3">
+      <article class="kpi card">
+        <div>Student</div>
+        <div id="studentName" class="value">-</div>
+      </article>
+      <article class="kpi card">
+        <div>Class Rank</div>
+        <div id="rank" class="value">-</div>
+      </article>
+      <article class="kpi card">
+        <div>Best Subject</div>
+        <div id="bestSubject" class="value">-</div>
+      </article>
+    </section>
+
+    <section class="grid grid-2" style="margin-top: 16px;">
+      <article class="card panel">
+        <h3>Subject-wise Marks</h3>
+        <canvas id="subjectMarksChart"></canvas>
+      </article>
+      <article class="card panel">
+        <h3>Performance Trend</h3>
+        <canvas id="performanceLineChart"></canvas>
+      </article>
+      <article class="card panel">
+        <h3>Average Comparison</h3>
+        <canvas id="compareAvgChart"></canvas>
+      </article>
+      <article class="card panel">
+        <h3>Overview</h3>
+        <p class="small">Student Average</p>
+        <h2 id="studentAvg" style="margin-top: 8px;">-</h2>
+        <p class="small" style="margin-top: 18px;">Class Average</p>
+        <h2 id="classAvg" style="margin-top: 8px;">-</h2>
+      </article>
+    </section>
+
+    <div id="dashboardStatus" class="status" style="margin-top: 16px;"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/student.js"></script>
+</body>
+</html>

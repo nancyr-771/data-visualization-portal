@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Smart Student Portal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <main class="auth-shell">
+    <section class="card auth-card">
+      <h2>Sign In</h2>
+      <p>Access your dashboard</p>
+      <form id="loginForm" onsubmit="loginUser(event)">
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input id="email" type="email" required />
+        </div>
+        <div class="form-row">
+          <label for="password">Password</label>
+          <input id="password" type="password" required />
+        </div>
+        <div class="actions">
+          <button id="submitBtn" type="submit">Login</button>
+          <a class="link" href="register.html">Create account</a>
+        </div>
+      </form>
+      <div id="status" class="status"></div>
+    </section>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>
