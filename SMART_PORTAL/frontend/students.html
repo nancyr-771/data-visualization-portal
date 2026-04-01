@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Students | Smart Student Portal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell" id="studentsShell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">SP</div>
+        <div>
+          <strong>Smart Portal</strong>
+          <small>Student Management</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="admin_dashboard.html">Dashboard</a>
+        <a href="admin_dashboard.html#uploadSection">Upload Data</a>
+        <a class="active" href="students.html">Students</a>
+        <a href="admin_dashboard.html#reportsSection">Reports</a>
+      </nav>
+    </aside>
+
+    <main class="main-shell">
+      <header class="topbar modern">
+        <div class="topbar-left">
+          <button class="ghost-btn mobile-only" type="button" data-sidebar-toggle>Menu</button>
+          <div>
+            <h1 id="studentsPageTitle">Students</h1>
+            <p>Search, sort, and filter the selected class roster.</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <select id="studentsClassSelect" data-class-select></select>
+          <span class="pill">Admin: <strong id="welcomeName"></strong></span>
+          <button id="logoutBtn" type="button">Logout</button>
+        </div>
+      </header>
+
+      <section class="card panel">
+        <div class="form-grid">
+          <input id="studentTableSearch" type="text" placeholder="Search by student name or ID" />
+          <select id="studentSort">
+            <option value="rank">Sort by Rank</option>
+            <option value="average">Sort by Average</option>
+            <option value="total">Sort by Total</option>
+            <option value="name">Sort by Name</option>
+          </select>
+          <select id="studentFilter">
+            <option value="all">All Students</option>
+            <option value="top">Top Students</option>
+            <option value="average">Above Class Average</option>
+            <option value="weak">Below Class Average</option>
+            <option value="pass">Pass</option>
+            <option value="fail">Fail</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card panel">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Student ID</th>
+                <th>Total</th>
+                <th>Average</th>
+                <th>Rank</th>
+                <th>Grade</th>
+                <th>Status</th>
+                <th>Best Subject</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

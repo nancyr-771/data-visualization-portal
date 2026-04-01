@@ -8,119 +8,200 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="container">
-    <header class="topbar card">
-      <div>
-        <h3 id="welcome">Welcome</h3>
-        <div class="meta">Admin Dashboard</div>
+  <div class="app-shell" id="dashboardShell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">SP</div>
+        <div>
+          <strong>Smart Portal</strong>
+          <small>Admin Console</small>
+        </div>
       </div>
-      <button id="logoutBtn" type="button">Logout</button>
-    </header>
 
-    <section class="card panel">
-      <h3>Upload Data File</h3>
-      <p class="small">Supported formats: .json, .txt, .pdf, .docx (.doc must be converted)</p>
-      <form id="uploadForm" class="upload-group">
-        <input id="dataFile" type="file" accept=".json,.txt,.pdf,.docx,.doc" required />
-        <button id="uploadBtn" type="submit">Upload File</button>
-      </form>
-      <div id="uploadStatus" class="status"></div>
-    </section>
+      <nav class="sidebar-nav">
+        <a class="active" href="admin_dashboard.html">Dashboard</a>
+        <a href="#uploadSection">Upload Data</a>
+        <a href="students.html">Students</a>
+        <a href="#reportsSection">Reports</a>
+      </nav>
+    </aside>
 
-    <section class="grid grid-3" style="margin-top: 16px;">
-      <article class="kpi card">
-        <div>Total Students</div>
-        <div id="kpiStudents" class="value">0</div>
-      </article>
-      <article class="kpi card">
-        <div>Class Average</div>
-        <div id="kpiClassAvg" class="value">0</div>
-      </article>
-      <article class="kpi card">
-        <div>Top Segment</div>
-        <div class="value">Top 5</div>
-      </article>
-    </section>
-
-    <div id="dashboardStatus" class="status"></div>
-
-    <section class="card panel" style="margin-top: 16px;">
-      <h3>Student Performance Search</h3>
-      <p class="small">Search by student name or registered email ID to view their performance inside the admin dashboard.</p>
-      <form id="studentSearchForm" class="upload-group search-group">
-        <input id="studentSearchInput" type="text" placeholder="Enter student name or email" required />
-        <button id="studentSearchBtn" type="submit">Search Student</button>
-      </form>
-      <div id="studentSearchStatus" class="status"></div>
-
-      <div id="studentSearchResult" class="student-result" hidden>
-        <div class="grid grid-4" style="margin-top: 16px;">
-          <article class="kpi card">
-            <div>Student</div>
-            <div id="searchStudentName" class="value">-</div>
-          </article>
-          <article class="kpi card">
-            <div>Rank</div>
-            <div id="searchStudentRank" class="value">-</div>
-          </article>
-          <article class="kpi card">
-            <div>Average</div>
-            <div id="searchStudentAvg" class="value">-</div>
-          </article>
-          <article class="kpi card">
-            <div>Best Subject</div>
-            <div id="searchBestSubject" class="value">-</div>
-          </article>
+    <main class="main-shell">
+      <header class="topbar modern">
+        <div class="topbar-left">
+          <button class="ghost-btn mobile-only" type="button" data-sidebar-toggle>Menu</button>
+          <div>
+            <h1 id="pageTitle">Admin Dashboard</h1>
+            <p id="pageMeta">Loading latest class...</p>
+          </div>
         </div>
 
-        <div class="student-meta">
-          <span><strong>Email:</strong> <span id="searchStudentEmail">-</span></span>
-          <span><strong>Student ID:</strong> <span id="searchStudentId">-</span></span>
-          <span><strong>Total Marks:</strong> <span id="searchStudentTotal">-</span></span>
-          <span><strong>Class Average:</strong> <span id="searchClassAvg">-</span></span>
+        <div class="topbar-actions">
+          <select id="classSelect" data-class-select></select>
+          <span class="pill">Admin: <strong id="welcomeName"></strong></span>
+          <button id="logoutBtn" type="button">Logout</button>
+        </div>
+      </header>
+
+      <div id="dashboardStatus" class="status"></div>
+
+      <section class="dashboard-grid">
+        <article class="stat-card">
+          <span>Total Students</span>
+          <strong id="totalStudents">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Class Average</span>
+          <strong id="classAverage">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Pass Count</span>
+          <strong id="passCount">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Topper</span>
+          <strong id="topperCard">-</strong>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel span-2">
+          <div class="panel-head">
+            <div>
+              <h3>Smart Insights</h3>
+              <p>Production-style academic signals for the selected class.</p>
+            </div>
+          </div>
+          <div class="insight-grid">
+            <div class="insight-card">
+              <span>Topper</span>
+              <strong id="insightTopper">-</strong>
+            </div>
+            <div class="insight-card">
+              <span>Best Subject</span>
+              <strong id="insightBestSubject">-</strong>
+            </div>
+            <div class="insight-card">
+              <span>Weakest Subject</span>
+              <strong id="insightWeakestSubject">-</strong>
+            </div>
+            <div class="insight-card">
+              <span>Below Class Average</span>
+              <strong id="insightBelowAverage">0</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="card panel" id="reportsSection">
+          <div class="panel-head">
+            <div>
+              <h3>Reports</h3>
+              <p>Export the selected class.</p>
+            </div>
+          </div>
+          <div class="button-stack">
+            <button id="downloadPdfBtn" type="button">Download PDF</button>
+            <button id="downloadExcelBtn" type="button" class="secondary">Download Excel</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel-grid" id="uploadSection">
+        <article class="card panel span-2">
+          <div class="panel-head">
+            <div>
+              <h3>Upload Data</h3>
+              <p>Each upload becomes a separate class snapshot. Dynamic subjects are detected automatically.</p>
+            </div>
+          </div>
+          <form id="uploadForm" class="form-grid">
+            <input id="classNameInput" type="text" placeholder="Class name, e.g. CSE Sem 1 Midterm" />
+            <input id="dataFile" type="file" accept=".json,.txt,.pdf,.docx,.doc" required />
+            <button id="uploadBtn" type="submit">Upload Data</button>
+          </form>
+        </article>
+
+        <article class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3>Upload History</h3>
+              <p>Recent class snapshots.</p>
+            </div>
+          </div>
+          <ul id="uploadHistory" class="ranking compact"></ul>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel">
+          <h3>Top Students</h3>
+          <canvas id="topStudentsChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Subject Averages</h3>
+          <canvas id="subjectAverageChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Pass vs Fail</h3>
+          <canvas id="passFailChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Grade Distribution</h3>
+          <canvas id="gradeDistributionChart"></canvas>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel span-2">
+          <h3>Performance Trend</h3>
+          <canvas id="classTrendChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Ranking Snapshot</h3>
+          <ul id="rankingList" class="ranking"></ul>
+        </article>
+      </section>
+
+      <section class="card panel">
+        <div class="panel-head">
+          <div>
+            <h3>Student Performance Search</h3>
+            <p>Search by student name or registered email and inspect the result directly in the dashboard.</p>
+          </div>
         </div>
 
-        <section class="grid grid-2" style="margin-top: 16px;">
-          <article class="card panel">
-            <h3>Subject-wise Marks</h3>
-            <canvas id="studentSearchMarksChart"></canvas>
-          </article>
-          <article class="card panel">
-            <h3>Student vs Class Subject Average</h3>
-            <canvas id="studentSearchComparisonChart"></canvas>
-          </article>
-        </section>
+        <form id="studentSearchForm" class="form-grid">
+          <input id="studentSearchInput" type="text" placeholder="Enter student name or email" required />
+          <button type="submit">Search Student</button>
+        </form>
 
-        <section class="card panel" style="margin-top: 16px;">
-          <h3>Subject Breakdown</h3>
-          <ul id="studentSubjectBreakdown" class="ranking"></ul>
-        </section>
-      </div>
-    </section>
+        <div id="studentSearchStatus" class="status"></div>
 
-    <section class="grid grid-2" style="margin-top: 16px;">
-      <article class="card panel">
-        <h3>Top 5 Students by Total</h3>
-        <canvas id="top5Chart"></canvas>
-      </article>
-      <article class="card panel">
-        <h3>Subject-wise Averages</h3>
-        <canvas id="subjectAvgChart"></canvas>
-      </article>
-      <article class="card panel">
-        <h3>Best Subject Distribution</h3>
-        <canvas id="bestSubjectPieChart"></canvas>
-      </article>
-      <article class="card panel">
-        <h3>Overall Class Performance</h3>
-        <canvas id="classPerformanceChart"></canvas>
-      </article>
-    </section>
+        <div id="studentResultCard" class="student-search-card" hidden>
+          <div class="search-summary">
+            <div>
+              <h3 id="studentSearchName">-</h3>
+              <p id="studentSearchEmail">-</p>
+              <small id="studentSearchMeta">-</small>
+            </div>
+            <div class="message-badge" id="studentSearchMessage"></div>
+          </div>
 
-    <section class="card panel" style="margin-top: 16px; margin-bottom: 20px;">
-      <h3>Top 5 Ranking List</h3>
-      <ul id="rankingList" class="ranking"></ul>
-    </section>
+          <ul id="studentSearchMetrics" class="ranking metric-list"></ul>
+
+          <div class="panel-grid">
+            <article class="card panel">
+              <h3>Subject-wise Marks</h3>
+              <canvas id="studentMarksChart"></canvas>
+            </article>
+            <article class="card panel">
+              <h3>Student vs Class</h3>
+              <canvas id="studentCompareChart"></canvas>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script src="js/common.js"></script>

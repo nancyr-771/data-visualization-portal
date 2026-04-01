@@ -4,5 +4,8 @@ flask_bcrypt
 flask_cors
 pymongo
 dnspython
+python-dotenv
 pypdf
 python-docx
+openpyxl
+reportlab

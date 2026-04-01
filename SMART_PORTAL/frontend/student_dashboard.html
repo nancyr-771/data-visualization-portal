@@ -8,53 +8,113 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="container">
-    <header class="topbar card">
-      <div>
-        <h3 id="welcome">Welcome</h3>
-        <div class="meta">Student Dashboard</div>
+  <div class="app-shell student-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">SP</div>
+        <div>
+          <strong>Smart Portal</strong>
+          <small>Student View</small>
+        </div>
       </div>
-      <button id="logoutBtn" type="button">Logout</button>
-    </header>
 
-    <section class="grid grid-3">
-      <article class="kpi card">
-        <div>Student</div>
-        <div id="studentName" class="value">-</div>
-      </article>
-      <article class="kpi card">
-        <div>Class Rank</div>
-        <div id="rank" class="value">-</div>
-      </article>
-      <article class="kpi card">
-        <div>Best Subject</div>
-        <div id="bestSubject" class="value">-</div>
-      </article>
-    </section>
+      <nav class="sidebar-nav">
+        <a class="active" href="student_dashboard.html">Dashboard</a>
+      </nav>
+    </aside>
 
-    <section class="grid grid-2" style="margin-top: 16px;">
-      <article class="card panel">
-        <h3>Subject-wise Marks</h3>
-        <canvas id="subjectMarksChart"></canvas>
-      </article>
-      <article class="card panel">
-        <h3>Performance Trend</h3>
-        <canvas id="performanceLineChart"></canvas>
-      </article>
-      <article class="card panel">
-        <h3>Average Comparison</h3>
-        <canvas id="compareAvgChart"></canvas>
-      </article>
-      <article class="card panel">
-        <h3>Overview</h3>
-        <p class="small">Student Average</p>
-        <h2 id="studentAvg" style="margin-top: 8px;">-</h2>
-        <p class="small" style="margin-top: 18px;">Class Average</p>
-        <h2 id="classAvg" style="margin-top: 8px;">-</h2>
-      </article>
-    </section>
+    <main class="main-shell">
+      <header class="topbar modern">
+        <div class="topbar-left">
+          <button class="ghost-btn mobile-only" type="button" data-sidebar-toggle>Menu</button>
+          <div>
+            <h1>Welcome, <span id="welcomeName">Student</span></h1>
+            <p>Your academic analytics and feedback.</p>
+          </div>
+        </div>
 
-    <div id="dashboardStatus" class="status" style="margin-top: 16px;"></div>
+        <div class="topbar-actions">
+          <select id="studentClassSelect"></select>
+          <button id="downloadMarksPdfBtn" type="button" class="secondary">Download PDF</button>
+          <button id="logoutBtn" type="button">Logout</button>
+        </div>
+      </header>
+
+      <section class="dashboard-grid">
+        <article class="stat-card">
+          <span>Student</span>
+          <strong id="studentName">-</strong>
+        </article>
+        <article class="stat-card">
+          <span>Rank</span>
+          <strong id="studentRank">-</strong>
+        </article>
+        <article class="stat-card">
+          <span>Grade</span>
+          <strong id="studentGrade">-</strong>
+        </article>
+        <article class="stat-card">
+          <span>Status</span>
+          <strong id="studentStatus">-</strong>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel span-2">
+          <div class="panel-head">
+            <div>
+              <h3>Performance Summary</h3>
+              <p id="studentMessage">Loading message...</p>
+            </div>
+          </div>
+          <div class="insight-grid">
+            <div class="insight-card">
+              <span>Student Average</span>
+              <strong id="studentAverage">-</strong>
+            </div>
+            <div class="insight-card">
+              <span>Class Average</span>
+              <strong id="classAverage">-</strong>
+            </div>
+            <div class="insight-card">
+              <span>Best Subject</span>
+              <strong id="bestSubject">-</strong>
+            </div>
+            <div class="insight-card">
+              <span>Weak Subject</span>
+              <strong id="weakSubject">-</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3>Subject Progress</h3>
+              <p>Weak subjects are highlighted.</p>
+            </div>
+          </div>
+          <div id="subjectProgressList" class="progress-list"></div>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel">
+          <h3>Subject-wise Marks</h3>
+          <canvas id="subjectMarksChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Performance Trend</h3>
+          <canvas id="performanceLineChart"></canvas>
+        </article>
+        <article class="card panel span-2">
+          <h3>Comparison with Class Average</h3>
+          <canvas id="compareAvgChart"></canvas>
+        </article>
+      </section>
+
+      <div id="dashboardStatus" class="status"></div>
+    </main>
   </div>
 
   <script src="js/common.js"></script>
