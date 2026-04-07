@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Smart Student Portal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">SP</div>
+        <div>
+          <strong>Smart Portal</strong>
+          <small>Admin Console</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a data-admin-page="dashboard" href="dashboard.html">Dashboard</a>
+        <a data-admin-page="upload" href="upload.html">Upload</a>
+        <a data-admin-page="reports" href="reports.html">Reports</a>
+        <a data-admin-page="students" href="students.html">Students</a>
+      </nav>
+    </aside>
+
+    <main class="main-shell">
+      <header class="topbar modern">
+        <div class="topbar-left">
+          <button class="ghost-btn mobile-only" type="button" data-sidebar-toggle>Menu</button>
+          <div>
+            <h1 id="pageTitle">Dashboard</h1>
+            <p id="pageMeta">Loading latest snapshot...</p>
+            <small id="latestUploadMeta"></small>
+          </div>
+        </div>
+
+        <div class="topbar-actions wrap-actions">
+          <select data-class-select></select>
+          <select data-upload-date-select></select>
+          <span class="pill">Admin: <strong data-welcome-name></strong></span>
+          <button type="button" data-logout>Logout</button>
+        </div>
+      </header>
+
+      <div id="dashboardStatus" class="status"></div>
+
+      <section class="dashboard-grid five-up">
+        <article class="stat-card">
+          <span>Total Students</span>
+          <strong id="totalStudents">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Average Marks</span>
+          <strong id="averageMarks">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Pass Percentage</span>
+          <strong id="passPercentage">0%</strong>
+        </article>
+        <article class="stat-card">
+          <span>Top Score</span>
+          <strong id="topScore">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Hardest Subject</span>
+          <strong id="hardestSubjectMessage">-</strong>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel span-2 student-spotlight-panel">
+          <div class="panel-head">
+            <div>
+              <h3>Student Search</h3>
+              <p>Search one student by name, email, or student ID and review subject-level pass and fail counts.</p>
+            </div>
+          </div>
+          <form id="studentSearchForm" class="student-search-form student-search-form--hero">
+            <input id="studentSearchInput" type="text" placeholder="Search by student name, email, or ID" />
+            <button type="submit">Search Student</button>
+          </form>
+          <div id="studentSearchStatus" class="status"></div>
+          <div id="studentResultCard" class="student-search-card student-search-card--hero" hidden>
+            <div class="search-summary">
+              <div>
+                <h3 id="studentSearchName">-</h3>
+                <small id="studentSearchMeta">-</small>
+              </div>
+              <div class="message-badge" id="studentSearchMessage"></div>
+            </div>
+            <p id="studentInsight" class="muted-copy"></p>
+            <div class="student-count-grid">
+              <div class="insight-card success-tone">
+                <span>Pass Subjects</span>
+                <strong id="studentPassSubjectCount">0</strong>
+              </div>
+              <div class="insight-card danger-tone">
+                <span>Fail Subjects</span>
+                <strong id="studentFailSubjectCount">0</strong>
+              </div>
+            </div>
+            <ul id="studentSearchMetrics" class="ranking metric-list"></ul>
+            <canvas id="studentMarksChart"></canvas>
+            <canvas id="studentCompareChart"></canvas>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel">
+          <h3>Top Students</h3>
+          <canvas id="topStudentsChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Subject Averages</h3>
+          <canvas id="subjectAverageChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Pass vs Fail</h3>
+          <canvas id="passFailChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Grade Distribution</h3>
+          <canvas id="gradeDistributionChart"></canvas>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel span-2">
+          <h3>Performance Trend</h3>
+          <canvas id="classTrendChart"></canvas>
+        </article>
+        <article class="card panel">
+          <h3>Ranking Snapshot</h3>
+          <ul id="rankingList" class="ranking"></ul>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel span-2">
+          <div class="panel-head">
+            <div>
+              <h3>Class Comparison</h3>
+              <p>Compare the selected snapshot with another class snapshot.</p>
+            </div>
+            <select id="compareClassSelect" data-compare-class-select></select>
+          </div>
+          <canvas id="comparisonChart"></canvas>
+        </article>
+      </section>
+
+      <section class="card panel">
+        <div class="panel-head">
+          <div>
+            <h3>Students By Class</h3>
+            <p>View all students for the selected class or upload date.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Total</th>
+                <th>Average</th>
+                <th>Grade</th>
+                <th>Rank</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/admin-common.js"></script>
+  <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

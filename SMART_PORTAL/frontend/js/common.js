@@ -1,4 +1,24 @@
-const API_BASE = "http://127.0.0.1:5000";
+function resolveApiBase() {
+  const configuredBase =
+    window.__APP_CONFIG__?.API_BASE ||
+    document.querySelector('meta[name="api-base"]')?.content ||
+    localStorage.getItem("api_base_override") ||
+    "";
+
+  if (configuredBase) {
+    return configuredBase.replace(/\/+$/, "");
+  }
+
+  const { protocol, hostname } = window.location;
+  const isLocal =
+    protocol === "file:" ||
+    hostname === "localhost" ||
+    hostname === "127.0.0.1";
+
+  return isLocal ? "http://127.0.0.1:5000" : "/api";
+}
+
+const API_BASE = resolveApiBase();
 
 function getToken() {
   return localStorage.getItem("token");

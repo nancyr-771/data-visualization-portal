@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reports | Smart Student Portal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">SP</div>
+        <div>
+          <strong>Smart Portal</strong>
+          <small>Admin Console</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a data-admin-page="dashboard" href="dashboard.html">Dashboard</a>
+        <a data-admin-page="upload" href="upload.html">Upload</a>
+        <a data-admin-page="reports" href="reports.html">Reports</a>
+        <a data-admin-page="students" href="students.html">Students</a>
+      </nav>
+    </aside>
+
+    <main class="main-shell">
+      <header class="topbar modern">
+        <div class="topbar-left">
+          <button class="ghost-btn mobile-only" type="button" data-sidebar-toggle>Menu</button>
+          <div>
+            <h1 id="reportsPageTitle">Reports</h1>
+            <p id="reportsMeta">Loading latest report snapshot...</p>
+            <small id="latestUploadMeta"></small>
+          </div>
+        </div>
+
+        <div class="topbar-actions wrap-actions">
+          <select data-class-select></select>
+          <select data-upload-date-select></select>
+          <span class="pill">Admin: <strong data-welcome-name></strong></span>
+          <button type="button" data-logout>Logout</button>
+        </div>
+      </header>
+
+      <div id="reportsStatus" class="status"></div>
+
+      <section class="panel-grid">
+        <article class="card panel span-2">
+          <div class="panel-head">
+            <div>
+              <h3>Filtered Report Export</h3>
+              <p>Export the selected snapshot to PDF or Excel, including current filter values.</p>
+            </div>
+          </div>
+          <form id="reportsFilterForm" class="filter-grid">
+            <select id="reportSubjectFilter" data-subject-select>
+              <option value="">All Subjects</option>
+            </select>
+            <select id="reportGradeFilter">
+              <option value="">All Grades</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="F">F</option>
+            </select>
+            <input id="reportMinMarks" type="number" min="0" max="100" placeholder="Min marks" />
+            <input id="reportMaxMarks" type="number" min="0" max="100" placeholder="Max marks" />
+            <button type="submit">Refresh Report</button>
+          </form>
+          <div class="button-stack horizontal">
+            <button id="downloadPdfBtn" type="button">Download PDF</button>
+            <button id="downloadExcelBtn" type="button" class="secondary">Download Excel</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel-grid">
+        <article class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3>Top 5 Students</h3>
+              <p>Highest performers in the selected snapshot.</p>
+            </div>
+          </div>
+          <ul id="topStudentsList" class="ranking"></ul>
+        </article>
+
+        <article class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3>Bottom Performers</h3>
+              <p>Students needing improvement.</p>
+            </div>
+          </div>
+          <ul id="bottomStudentsList" class="ranking"></ul>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/admin-common.js"></script>
+  <script src="js/admin-reports.js"></script>
+</body>
+</html>

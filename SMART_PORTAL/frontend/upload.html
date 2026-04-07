@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload | Smart Student Portal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">SP</div>
+        <div>
+          <strong>Smart Portal</strong>
+          <small>Admin Console</small>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a data-admin-page="dashboard" href="dashboard.html">Dashboard</a>
+        <a data-admin-page="upload" href="upload.html">Upload</a>
+        <a data-admin-page="reports" href="reports.html">Reports</a>
+        <a data-admin-page="students" href="students.html">Students</a>
+      </nav>
+    </aside>
+
+    <main class="main-shell">
+      <header class="topbar modern">
+        <div class="topbar-left">
+          <button class="ghost-btn mobile-only" type="button" data-sidebar-toggle>Menu</button>
+          <div>
+            <h1>Upload Snapshots</h1>
+            <p>Upload a new student file and manage class history.</p>
+            <small id="latestUploadMeta"></small>
+          </div>
+        </div>
+
+        <div class="topbar-actions wrap-actions">
+          <select data-class-select></select>
+          <select data-upload-date-select></select>
+          <span class="pill">Admin: <strong data-welcome-name></strong></span>
+          <button type="button" data-logout>Logout</button>
+        </div>
+      </header>
+
+      <div id="uploadStatus" class="status"></div>
+
+      <section class="panel-grid">
+        <article class="card panel span-2">
+          <div class="panel-head">
+            <div>
+              <h3>Upload Student Data</h3>
+              <p>Each upload creates a new snapshot with its own upload date and class history.</p>
+            </div>
+          </div>
+          <form id="uploadForm" class="filter-grid">
+            <input id="uploadClassName" type="text" placeholder="Class name, e.g. CSE Sem 2 Weekly Test" />
+            <input id="uploadFile" type="file" accept=".json,.txt,.pdf,.docx,.doc" required />
+            <button id="uploadSubmitBtn" type="submit">Upload Snapshot</button>
+          </form>
+        </article>
+
+        <article class="card panel">
+          <div class="panel-head">
+            <div>
+              <h3>Upload Dates</h3>
+              <p>Select past uploads by date from the header above.</p>
+            </div>
+          </div>
+          <div class="message-badge">Latest snapshot loads by default after upload.</div>
+        </article>
+      </section>
+
+      <section class="card panel">
+        <div class="panel-head">
+          <div>
+            <h3>Upload History</h3>
+            <p>Newest uploads are shown first and the latest one is highlighted.</p>
+          </div>
+        </div>
+        <ul id="uploadHistoryList" class="ranking"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/admin-common.js"></script>
+  <script src="js/admin-upload.js"></script>
+</body>
+</html>

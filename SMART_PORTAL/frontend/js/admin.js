@@ -340,7 +340,7 @@ function renderStudentsTable(rows = []) {
       <td>${student.best_subject}</td>
     `;
     tr.addEventListener("click", () => {
-      window.location.href = `admin_dashboard.html?class_id=${encodeURIComponent(adminState.currentClassId)}&student=${encodeURIComponent(student.name)}`;
+      window.location.href = `dashboard.html?class_id=${encodeURIComponent(adminState.currentClassId)}&student=${encodeURIComponent(student.name)}`;
     });
     body.appendChild(tr);
   });
